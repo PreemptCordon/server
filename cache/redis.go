@@ -4,17 +4,19 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v9"
 )
 
 var RedisClient *redis.Client
+var ctx context.Context
 
-func connectRedis(ctx context.Context, redisuri string) {
+func ConnectRedis(redisuri string) {
+	ctx = context.Background()
 	client := redis.NewClient(&redis.Options{
 		Addr: redisuri,
 		DB:   0,
 	})
-	pong, err := client.Ping().Result()
+	pong, err := client.Ping(ctx).Result()
 	if err != nil {
 		panic(err)
 	}

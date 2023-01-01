@@ -13,7 +13,9 @@ type LimitData struct {
 
 func TryEdit(user obj.UserObj, page obj.WikiObj) bool {
 	var limitinfo LimitData
-	if err := RedisClient.HGetAll("limit" + page.Key.String()).Scan(&limitinfo); err != nil {
+	hashset := RedisClient.HGetAll(ctx, "limit"+page.Key.String())
+	err := hashset.Scan(&limitinfo)
+	if err != nil {
 		panic(err)
 	}
 	recenteditors := ViewRecentEdits(page)
@@ -21,25 +23,23 @@ func TryEdit(user obj.UserObj, page obj.WikiObj) bool {
 		return false
 	}
 	thisedit := "limit" + page.Key.String() + time.Now().String()
-	RedisClient.Set(thisedit, user.ID, limitinfo.Rate)
+	RedisClient.Set(ctx, thisedit, user.ID, limitinfo.Rate)
 
 	return true
 }
 func SetLimit(page obj.WikiObj, bucket, rate int) {
-	RedisClient.HSet("limit"+page.Key.String(), "bucket", bucket)
-	RedisClient.HSet("limit"+page.Key.String(), "rate", rate)
+	RedisClient.HSet(ctx, "limit"+page.Key.String(), "bucket", bucket)
+	RedisClient.HSet(ctx, "limit"+page.Key.String(), "rate", rate)
 }
 func ViewRecentEdits(page obj.WikiObj) []obj.UserObj {
-	recenteditors, err := RedisClient.Get("limit" + page.Key.String() + "*").Result()
+	recenteditors, err := RedisClient.Get(ctx, "limit"+page.Key.String()+"*").Result()
 	if err != nil {
 		panic(err)
 	}
 	var result []obj.UserObj
 	user := new(obj.UserObj)
 	user.ID = string(recenteditors) // technically this is an int... I'll change it later.
-	result = []obj.UserObj{
-		user,
-	}
+	result = append(result, *user)
 	// for editor := range recenteditors {
 	// 	user := new(obj.UserObj)
 	// 	user.ID = string(editor) // technically this is an int... I'll change it later.

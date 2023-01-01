@@ -1,21 +1,12 @@
-type ResultStyle
-const (
-	feed ResultStyle = iota,
-	search SearchStyle,
-)
-type ResultEntity {
-	class ObjType
-	title string
-	key string
-	summary string
-	wiki string
-	score int
-}
+package search
 
-type ResultPage struct {
-	style ResultStyle
-	results []ResultEntity
-}
-func insert(item ResultEntity){
-	item.score
+import (
+	"fmt"
+
+	"github.com/preemptcordon/server/obj"
+)
+
+func insert(item obj.ResultEntity) {
+	fmt.Println(item.Score)
+
 }

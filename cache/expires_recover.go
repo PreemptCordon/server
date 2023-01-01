@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v9"
 	"github.com/google/uuid"
 	"github.com/preemptcordon/server/obj"
 )
@@ -13,14 +13,14 @@ import (
 func MakeRecovery(ctx context.Context, user obj.UserObj) string {
 	uuid := uuid.New()
 	key := "recovery" + uuid.String()
-	_, err := RedisClient.Set(key, user.Email, time.Hour).Result()
+	_, err := RedisClient.Set(ctx, key, user.Email, time.Hour).Result()
 	if err != nil {
 		panic(err)
 	}
 	return uuid.String()
 }
 func GetRecovery(code string, user string) (invite string, err error) {
-	val, err := RedisClient.Get("recovery" + code).Result()
+	val, err := RedisClient.Get(ctx, "recovery"+code).Result()
 	if err == redis.Nil {
 		return "", errors.New("no code")
 	}

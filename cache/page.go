@@ -13,10 +13,10 @@ func Sanitize(input obj.Markdown) obj.Markdown {
 }
 func CachePage(key string, value obj.Markdown) {
 	store := Sanitize(value)
-	RedisClient.Set("cachepage"+key, string(store), 0) // will set expiration later...
+	RedisClient.Set(ctx, "cachepage"+key, string(store), 0) // will set expiration later...
 }
 func LoadPage(key string) obj.Markdown {
-	stored, err := RedisClient.Get("cachepage" + key).Result()
+	stored, err := RedisClient.Get(ctx, "cachepage"+key).Result()
 	if err != nil {
 		panic(err)
 	}

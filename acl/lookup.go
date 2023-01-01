@@ -1,6 +1,6 @@
 package acl
 
-func Lookup(path string) string {
-	result := path
-	return result
+func Lookup(path string) bool {
+	// do some logic with reading the ACL in the DB
+	return true
 }

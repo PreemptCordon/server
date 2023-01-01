@@ -14,7 +14,7 @@ type ServerSettings struct {
 	SMTPPort     string `mapstructure:"SMTPPort"`
 }
 
-func LoadConfig(path string) (config Config, err error) {
+func LoadConfig(path string) (config ServerSettings, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")

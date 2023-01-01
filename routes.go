@@ -14,8 +14,8 @@ func router() http.Handler {
 	// live JWTs
 	r.Group(func(r chi.Router) {
 		// r.Use(jwtauth.Verifier(tokenAuth))
-		r.Get("/profile:*", user.profilehandler)
-		r.Get("/article:*", wiki.articlehandler)
+		r.Get("/profile:*", user.ProfileHandler)
+		r.Get("/article:*", wiki.ArticleHandler)
 	})
 	// refresh redis queue
 	r.Group(func(r chi.Router) {
@@ -33,8 +33,4 @@ func router() http.Handler {
 		r.Get("/auth/recover", func(w http.ResponseWriter, r *http.Request) {})
 	})
 	return r
-}
-func main() {
-	r := router()
-	http.ListenAndServe(":8080", r)
 }
