@@ -2,11 +2,6 @@ package options
 
 /* arguments are per-option notes along a criteria (facet) */
 
-type Option struct {
-	parent     Decision
-	maintainer EntityObj
-	brief      Wiki
-}
 
 func AddArgument(user UserObj, their_option Option, criteria Criteria, argument Wiki) bool {
 	var your_option Option

@@ -1,17 +1,5 @@
 package choicetypes
 
-type LazySelection struct {
-	user UserObj
-	option Option
-	magnitude int
-}
-type LazyArg
-const (
-	AgreeWillHelp LazyArg = iota,
-	AgreeWontHelp,
-	DisagreeNoAlt,
-	DisagreeAlt,
-)
 func LazyCast(user UserObj, decision Decision, lazyarg LazyArg) {
 	selection = LazySelection{}
 	if lazyarg.AgreeWillHelp {

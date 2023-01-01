@@ -12,10 +12,10 @@ func linkdetect(text obj.Markdown) int {
 func UserLimitCheck(user obj.UserObj) bool {
 	return true
 }
-func PageLimitCheck(page obj.WikiObj) bool {
+func PageLimitCheck(page obj.WikiArticle) bool {
 	return false
 }
-func RateLimitEditCheck(user obj.UserObj, page obj.WikiObj) bool {
+func RateLimitEditCheck(user obj.UserObj, page obj.WikiArticle) bool {
 
 	userlimit := UserLimitCheck(user)
 	pagelimit := PageLimitCheck(page)
@@ -31,7 +31,7 @@ func UserLimitApply(user obj.UserObj, penalty int) {
 	// apply limit to bucket
 }
 
-func RateLimitApply(user obj.UserObj, page obj.WikiObj, draft obj.Section) {
+func RateLimitApply(user obj.UserObj, page obj.WikiArticle, draft obj.Section) {
 	linkpenalty := linkdetect(draft.Text)
 	if cache.TryEdit(user, page) {
 		page.Version = draft

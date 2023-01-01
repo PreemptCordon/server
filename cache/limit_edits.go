@@ -11,7 +11,7 @@ type LimitData struct {
 	Rate   time.Duration `redis:"rate"`
 }
 
-func TryEdit(user obj.UserObj, page obj.WikiObj) bool {
+func TryEdit(user obj.UserObj, page obj.WikiArticle) bool {
 	var limitinfo LimitData
 	hashset := RedisClient.HGetAll(ctx, "limit"+page.Key.String())
 	err := hashset.Scan(&limitinfo)
@@ -27,11 +27,11 @@ func TryEdit(user obj.UserObj, page obj.WikiObj) bool {
 
 	return true
 }
-func SetLimit(page obj.WikiObj, bucket, rate int) {
+func SetLimit(page obj.WikiArticle, bucket, rate int) {
 	RedisClient.HSet(ctx, "limit"+page.Key.String(), "bucket", bucket)
 	RedisClient.HSet(ctx, "limit"+page.Key.String(), "rate", rate)
 }
-func ViewRecentEdits(page obj.WikiObj) []obj.UserObj {
+func ViewRecentEdits(page obj.WikiArticle) []obj.UserObj {
 	recenteditors, err := RedisClient.Get(ctx, "limit"+page.Key.String()+"*").Result()
 	if err != nil {
 		panic(err)

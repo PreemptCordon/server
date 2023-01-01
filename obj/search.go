@@ -8,7 +8,7 @@ const (
 )
 
 type ResultEntity struct {
-	Class   ObjType
+	// Class   ObjType / could also have meant kind
 	Title   string
 	Key     string
 	Summary string
@@ -38,4 +38,5 @@ type SearchTerms struct {
 	Query          string
 	Consider       SearchConsider
 	DistTopicLimit []TopicLimit
+	Tags           []Category
 }

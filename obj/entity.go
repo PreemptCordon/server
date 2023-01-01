@@ -1,10 +1,12 @@
 package obj
 
-type EntityObj struct {
-	handle  string
-	objtype ObjType
-	about   WikiObj
+type EntityObj struct { // user or group
+	handle string
+	about  WikiArticle
 }
+
+// 	Groups can have regions, or might not.
+
 type EntityInterface interface {
 	Follow(EntityObj, EntityObj) bool
 	Unfollow(EntityObj, EntityObj) bool
@@ -47,7 +49,7 @@ type UserDataListsInterface interface {
 
 type profile struct {
 	user UserObj
-	wiki WikiObj
+	wiki WikiArticle
 }
 type UserList []string
 type UserListsData struct {

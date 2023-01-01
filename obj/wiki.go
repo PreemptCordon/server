@@ -4,20 +4,21 @@ import (
 	"github.com/google/uuid"
 )
 
-type WikiObj struct {
-	articles []WikiArticle
-	Version  Section
-	Key      uuid.UUID
-}
 type WikiArticle struct {
-	taxonomy   Category
-	controller EntityObj
-	acl        []ACL
+	Version    Section
+	Key        uuid.UUID
+	Category   Category
+	Controller *EntityObj
+	ACL        []ACL
+	Tags       []Category
 }
 type Section struct {
 	Text Markdown
 }
 type Markdown string
 type WikiDB interface {
-	Load(id string) WikiObj
+	Load(id string) WikiArticle
+}
+type Category struct {
+	owner *EntityObj
 }

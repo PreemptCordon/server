@@ -36,24 +36,24 @@ func SearchFilter(thisuser obj.UserObj, terms obj.SearchTerms) []obj.UnrankedRes
 	}
 
 	for _, match := range prefilter {
-		article = db.Article.Load(match)
-		if !CheckTagDistance(article, terms.Tags) {
+		article := db.LoadWiki(match)
+		if !CheckTagDistance(article, terms.Tags, terms.DistTopicLimit) {
 			continue
 		}
-		if CheckBlock(article.Author, thisuser) {
+		if CheckBlock(article.Controller, thisuser) {
 			continue
 		}
-		if !CheckACL(article.ACL, thisuser) {
+		if !CheckACL(article, thisuser) {
 			continue
 		}
 		if CheckMute(article, thisuser) {
 			continue
 		}
 		if CheckModBlock(article) {
-			match.PotentialVisitDenied(terms)
+			article.PotentialVisitDenied(terms)
 			continue
 		}
-		firstpass = append(firstpass, match)
+		firstpass = append(firstpass, article)
 	}
 	return firstpass
 }

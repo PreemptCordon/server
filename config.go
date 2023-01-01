@@ -1,20 +1,11 @@
 package main
 
-import "github.com/spf13/viper"
+import (
+	"github.com/preemptcordon/server/obj"
+	"github.com/spf13/viper"
+)
 
-type ServerSettings struct {
-	PostgresURI  string `mapstructure:"PostgresURI"`
-	RedisURI     string `mapstructure:"RedisURI"`
-	Domain       string `mapstructure:"Domain"`
-	Country      string
-	Languages    string
-	EmailUser    string `mapstructure:"EmailUser"`
-	SMTPPassword string `mapstructure:"SMTPPassword"`
-	SMTPHost     string `mapstructure:"SMTPHost"`
-	SMTPPort     string `mapstructure:"SMTPPort"`
-}
-
-func LoadConfig(path string) (config ServerSettings, err error) {
+func LoadConfig(path string) (config obj.ServerSettings, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
