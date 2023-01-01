@@ -2,7 +2,7 @@ package search
 
 func SearchFilter(thisuser UserObj, terms SearchTerms) UnrankedResults {
 	var firstpass []UnrankedResults
-	for t in terms.typesallowed {
+	for t := range terms.typesallowed {
 		matches := db.select(t,terms.query)
 		for match in matches {
 			if ! CheckTagDistance(match, terms.tags){

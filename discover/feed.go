@@ -1,9 +1,13 @@
 package discover
 
-func BuildDiscoverFeed(user UserObj) {
-	feed ResultsPage = BuildBaseFeed()
+import (
+	"github.com/preemptcordon/server/obj"
+)
+
+func BuildDiscoverFeed(user obj.UserObj) {
+	feed := BuildBaseFeed()
 	settings = user.DiscoverSettings
-	for entity in feed {
-		
+	for entity := range feed {
+
 	}
 }

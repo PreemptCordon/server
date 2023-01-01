@@ -6,28 +6,28 @@ import (
 	"github.com/preemptcordon/server/obj"
 )
 
-func evalone(user obj.UserObj, post obj.SearchResult) obj.SearchResult {
-	options := user.DiscoverOptions
-	result := obj.SearchResult
+func evalone(user obj.UserObj, post obj.ResultEntity) obj.ResultEntity {
+	options := user.Settings.Ranking.DiscoverSort
+	var result obj.ResultEntity
 	resultpage := obj.ResultPage{}
 	for config := range options {
 		for user := range config.getusers() {
 			if user.reaction(post) {
-				result.score += config.weight * config.direction
+				result.Score += config.weight * config.direction
 			}
 		}
 	}
-	switch options.scale {
+	switch options.Scale {
 	case obj.BinaryWeight:
-		if result < 0 {
+		if result.Score < 0 {
 			resultpage.Results.Pop(post)
 		}
 	case obj.LinearWeight:
-		result = result
+		result.Score = result.Score
 	case obj.LogarithmicWeight:
-		result = math.Log(result)
+		result.Score = int(math.Log(float64(result.Score)))
 	case obj.ExponentialWeight:
-		result = 2 ^ result
+		result.Score = 2 ^ result.Score
 	}
 	return result
 }

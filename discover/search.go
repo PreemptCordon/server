@@ -1,11 +1,15 @@
 package discover
 
-func DiscoverSearch(user UserObj, terms SearchTerms, options DiscoverOptions) {
+import (
+	"github.com/preemptcordon/server/obj"
+)
+
+func DiscoverSearch(user obj.UserObj, terms SearchTerms, options obj.DiscoverOptions) {
 	startresults := SearchFilter(user, terms)
-	results ResultsPage
-	for item in startresults {
+	results := obj.ResultsPage
+	for item := range startresults {
 		score = evalone(item)
-		results.insert(item,score)
+		results.insert(item, score)
 	}
 	return results
 }

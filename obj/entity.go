@@ -12,11 +12,12 @@ type EntityInterface interface {
 	Queue(EntityObj)
 }
 type UserObj struct {
-	Name   string
-	ID     string
-	Lists  UserDataLists
-	Email  string
-	Handle string
+	Name     string
+	ID       string
+	Lists    UserDataLists
+	Email    string
+	Handle   string
+	Settings UserSettings
 }
 
 func (u UserObj) Notifications() []string {
@@ -55,24 +56,23 @@ type UserListsData struct {
 	FollowList   UserList
 	DelegateList UserList
 }
-type RankPreference string
 type UserRankDefaultPreferences struct {
-	FeedSort         RankPreference
-	CommentSort      RankPreference
-	SearchSort       RankPreference
-	DiscoverSort     RankPreference
-	ReverseChronSort RankPreference
+	FeedSort         RankingPref
+	CommentSort      RankingPref
+	SearchSort       RankingPref
+	DiscoverSort     RankingPref
+	ReverseChronSort RankingPref
 }
 
 type UserSettings struct {
-	mydata    UserListsData
-	ranking   UserRankDefaultPreferences
-	notices   UserNoticeDefaultPreferences
-	discovery DiscoverPreferences
+	MyData    UserListsData
+	Ranking   UserRankDefaultPreferences
+	Notices   UserNoticeDefaultPreferences
+	Discovery DiscoverPreferences
 }
 type DiscoverPreferences struct {
-	discoverable bool `false`
-	traversable  bool `false`
+	Discoverable bool `false`
+	Traversable  bool `false`
 }
 
 type UserNoticeDefaultPreferences struct {
@@ -114,4 +114,35 @@ const (
 type NoticeSetting struct {
 	BrowserNotify NoticePreference
 	EmailNotify   NoticePreference
+}
+type DiscoverScale int
+
+const (
+	binary DiscoverScale = iota
+	logarithmic
+	linear
+	exponential
+)
+
+type DiscoverFilterDirection bool
+
+const (
+	include DiscoverFilterDirection = true
+	exclude DiscoverFilterDirection = false
+)
+
+type DiscoverFilter struct {
+	enabled   bool
+	scale     DiscoverScale
+	zombies   bool
+	distance  int
+	direction DiscoverFilterDirection
+}
+type DiscoverOptions struct {
+	disagree_blocked_me   DiscoverFilter
+	disagree_blocked_them DiscoverFilter
+	agree_follower        DiscoverFilter
+	agree_following       DiscoverFilter
+	agree_delegated       DiscoverFilter
+	agree_delegating      DiscoverFilter
 }
