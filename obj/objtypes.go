@@ -18,5 +18,3 @@ const (
 type Category struct {
 	owner EntityObj
 }
-type ACL struct {
-}

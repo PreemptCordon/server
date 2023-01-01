@@ -1,6 +1,6 @@
 package acl
 
-func lookup(path string) string {
+func Lookup(path string) string {
 	result := path
 	return result
 }

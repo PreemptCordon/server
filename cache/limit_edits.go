@@ -1,22 +1,49 @@
 package cache
 
-func TryEdit(user UserObj, page Wiki) bool {
-	bucket, rate, err := RedisClient.Get("limit"+page.key).Result()
+import (
+	"time"
+
+	"github.com/preemptcordon/server/obj"
+)
+
+type LimitData struct {
+	Bucket int           `redis:"bucket"`
+	Rate   time.Duration `redis:"rate"`
+}
+
+func TryEdit(user obj.UserObj, page obj.WikiObj) bool {
+	var limitinfo LimitData
+	if err := RedisClient.HGetAll("limit" + page.Key.String()).Scan(&limitinfo); err != nil {
+		panic(err)
+	}
 	recenteditors := ViewRecentEdits(page)
-	if recenteditors.length > bucket {
+	if len(recenteditors) > limitinfo.Bucket {
 		return false
 	}
-	pipe := RedisClient.Pipeline()
-	thisedit = "limit"+page+timestamp
-	pipe.Set(thisedit,user)
-	pipe.Expire(thisedit,rate)
+	thisedit := "limit" + page.Key.String() + time.Now().String()
+	RedisClient.Set(thisedit, user.ID, limitinfo.Rate)
 
 	return true
 }
-func SetLimit(page Wiki, bucket, rate) {
-	RedisClient.set("limit"+page.key, {bucket, rate})
+func SetLimit(page obj.WikiObj, bucket, rate int) {
+	RedisClient.HSet("limit"+page.Key.String(), "bucket", bucket)
+	RedisClient.HSet("limit"+page.Key.String(), "rate", rate)
 }
-func ViewRecentEdits(page Wiki) []UserObj {
-	recent := RedisClient.Get("limit"+page.key+"*")
-	return recent
+func ViewRecentEdits(page obj.WikiObj) []obj.UserObj {
+	recenteditors, err := RedisClient.Get("limit" + page.Key.String() + "*").Result()
+	if err != nil {
+		panic(err)
+	}
+	var result []obj.UserObj
+	user := new(obj.UserObj)
+	user.ID = string(recenteditors) // technically this is an int... I'll change it later.
+	result = []obj.UserObj{
+		user,
+	}
+	// for editor := range recenteditors {
+	// 	user := new(obj.UserObj)
+	// 	user.ID = string(editor) // technically this is an int... I'll change it later.
+	// 	result = append(result, user)
+	// }
+	return result
 }

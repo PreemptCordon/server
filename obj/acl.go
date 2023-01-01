@@ -1,8 +1,4 @@
-package acl
-
-import (
-	_ "github.com/preemptcordon/server/obj"
-)
+package obj
 
 type ACL struct {
 	entity  EntityObj

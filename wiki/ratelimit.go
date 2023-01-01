@@ -1,19 +1,40 @@
 package wiki
 
-func linkdetect(string) int {
+import (
+	"github.com/preemptcordon/server/cache"
+	"github.com/preemptcordon/server/obj"
+)
+
+func linkdetect(text obj.Markdown) int {
 	// return number of links in a string
+	return 1
 }
-
-func RateLimitEditCheck(user UserObj, page Wiki){
-
-	userlimit = UserLimitCheck(user)
-	pagelimit = PageLimitCheck(page)
-	if userlimit
+func UserLimitCheck(user obj.UserObj) bool {
+	return true
 }
-func RateLimitApply(user UserObj, page Wiki, draft){
-	linkpenalty = linkdetect(draft)
-	if TryEdit(user, page) {
-		wiki.version = draft
+func PageLimitCheck(page obj.WikiObj) bool {
+	return false
+}
+func RateLimitEditCheck(user obj.UserObj, page obj.WikiObj) bool {
+
+	userlimit := UserLimitCheck(user)
+	pagelimit := PageLimitCheck(page)
+	if userlimit {
+		return false
 	}
-	UserLimitApply(linkpenalty)
+	if pagelimit {
+		return false
+	}
+	return true
+}
+func UserLimitApply(user obj.UserObj, penalty int) {
+	// apply limit to bucket
+}
+
+func RateLimitApply(user obj.UserObj, page obj.WikiObj, draft obj.Section) {
+	linkpenalty := linkdetect(draft.Text)
+	if cache.TryEdit(user, page) {
+		page.Version = draft
+	}
+	UserLimitApply(user, linkpenalty)
 }

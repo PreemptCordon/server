@@ -1,26 +1,30 @@
 package user
 
-func follow(acting UserObj, subject UserObj) {
+import (
+	"github.com/preemptcordon/server/obj"
+)
+
+func Follow(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func unfollow(acting UserObj, subject UserObj) {
+func Unfollow(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func mute(acting UserObj, subject UserObj) {
+func Mute(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func unmute(acting UserObj, subject UserObj) {
+func Unmute(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func delegate(acting UserObj, subject UserObj) {
+func Delegate(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func undelegate(acting UserObj, subject UserObj) {
+func Undelegate(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func block(acting UserObj, subject UserObj) {
+func Block(acting obj.UserObj, subject obj.UserObj) {
 
 }
-func unblock(acting UserObj, subject UserObj) {
+func Unblock(acting obj.UserObj, subject obj.UserObj) {
 
 }

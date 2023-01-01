@@ -7,6 +7,6 @@ import (
 )
 
 func articlehandler(w http.ResponseWriter, r *http.Request) {
-	check := acl.lookup(r.URL.Path)
+	check := acl.Lookup(r.URL.Path)
 	return check
 }

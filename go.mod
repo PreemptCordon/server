@@ -6,6 +6,8 @@ go 1.18
 
 require (
 	github.com/go-chi/chi/v5 v5.0.8
+	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/google/uuid v1.1.2
 	github.com/jackc/pgx/v5 v5.2.0
 	github.com/spf13/viper v1.14.0
 )
