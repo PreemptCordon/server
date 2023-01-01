@@ -14,6 +14,8 @@ type ResultEntity struct {
 	Summary string
 	Wiki    string
 	Score   int
+	Author  EntityObj
+	ACL     ACL
 }
 
 type ResultPage struct {
@@ -22,18 +24,18 @@ type ResultPage struct {
 }
 type UnrankedResult ResultEntity
 type SearchConsider struct {
-	title   bool
-	summary bool
-	author  bool
-	bio     bool
-	groups  bool
+	Title   bool
+	Summary bool
+	Author  bool
+	Bio     bool
+	Groups  bool
 }
 type TopicLimit struct {
-	topic    Category
-	distance int
+	Topic    Category
+	Distance int
 }
 type SearchTerms struct {
-	query     string
-	consider  SearchConsider
-	distlimit []TopicLimit
+	Query          string
+	Consider       SearchConsider
+	DistTopicLimit []TopicLimit
 }

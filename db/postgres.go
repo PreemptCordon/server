@@ -1,13 +1,18 @@
 package db
+
 import (
-	"github.com/jackc/pgx"
+	"context"
+
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/preemptcordon/server/obj"
 )
-func InitDB(config) PostgresClient {
-	client := Postgres({
-		host=config.host,
-		user=config.user,
-		port=config.port,
-		db=config.db
-	})
-	return client
+
+var DBPool pgxpool.Pool
+
+func InitDB(config obj.ServerSettings) {
+	dbpool, err := pgxpool.New(context.Background(), config.PostgresURI)
+	if err != nil {
+		panic(err)
+	}
+	DBPool = *dbpool
 }

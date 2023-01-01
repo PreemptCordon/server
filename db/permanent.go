@@ -1,5 +1,7 @@
-type PermanentTable
-type struct PermanentTables {
+package db
+
+type PermanentTable int
+type PermanentTables struct {
 	reports PermanentTable
-	karma PermanentTable
+	karma   PermanentTable
 }

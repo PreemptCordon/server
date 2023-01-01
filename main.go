@@ -5,6 +5,7 @@ import (
 	"sync/atomic"
 
 	"github.com/preemptcordon/server/cache"
+	"github.com/preemptcordon/server/db"
 	"github.com/preemptcordon/server/discover"
 )
 
@@ -38,6 +39,7 @@ func main() {
 	cache.ConnectRedis(ServerConfig.RedisURI)
 	loadwatch = make(chan uint64)
 	go loadlisten()
+	db.InitDB(ServerConfig)
 	r := router()
 	http.ListenAndServe(":8080", r)
 }

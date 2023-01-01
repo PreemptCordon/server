@@ -18,3 +18,6 @@ type Section struct {
 	Text Markdown
 }
 type Markdown string
+type WikiDB interface {
+	Load(id string) WikiObj
+}

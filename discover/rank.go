@@ -6,7 +6,7 @@ import (
 	"github.com/preemptcordon/server/obj"
 )
 
-func evalone(user obj.UserObj, post obj.ResultEntity) obj.ResultEntity {
+func (obj.ResultEntity) RankSelf(user obj.UserObj, post obj.ResultEntity) obj.ResultEntity {
 	options := user.Settings.Ranking.DiscoverSort
 	var result obj.ResultEntity
 	resultpage := obj.ResultPage{}
