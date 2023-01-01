@@ -1,7 +1,7 @@
 package user
 
 import (
-	_ "../notifications"
+	_ "github.com/preemptcordon/server/user/settings"
 )
 
 type UserList []string
@@ -22,7 +22,7 @@ type UserRankDefaultPreferences struct {
 
 type UserSettings struct {
 	mydata    UserListsData
-	ranking   UserRankDefaulPreferences
+	ranking   UserRankDefaultPreferences
 	notices   UserNoticeDefaultPreferences
 	discovery DiscoverPreferences
 }

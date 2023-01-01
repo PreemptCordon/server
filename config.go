@@ -1,11 +1,13 @@
 package main
 
+import "github.com/spf13/viper"
+
 type ServerSettings struct {
 	PostgresURI  string `mapstructure:"PostgresURI"`
 	RedisURI     string `mapstructure:"RedisURI"`
 	Domain       string `mapstructure:"Domain"`
-	Country string
-	Languages string
+	Country      string
+	Languages    string
 	EmailUser    string `mapstructure:"EmailUser"`
 	SMTPPassword string `mapstructure:"SMTPPassword"`
 	SMTPHost     string `mapstructure:"SMTPHost"`
@@ -16,7 +18,7 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
-	viper..AutomaticEnv()
+	viper.AutomaticEnv()
 	err = viper.ReadInConfig()
 	if err != nil {
 		return
@@ -24,4 +26,3 @@ func LoadConfig(path string) (config Config, err error) {
 	err = viper.Unmarshal(&config)
 	return
 }
-ServerConfig := LoadConfig(".")

@@ -3,9 +3,10 @@ package main
 import (
 	"net/http"
 
+	_ "github.com/preemptcordon/server/user"
+	_ "github.com/preemptcordon/server/wiki"
+
 	"github.com/go-chi/chi/v5"
-	_ "github.com/preemptcordon/user"
-	_ "github.com/preemptcordon/wiki"
 )
 
 func router() http.Handler {

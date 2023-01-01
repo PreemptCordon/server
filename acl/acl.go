@@ -1,3 +1,9 @@
+package acl
+
+import (
+	_ "github.com/preemptcordon/server/obj"
+)
+
 type ACL struct {
 	entity  EntityObj
 	traffic AutoRateLimit

@@ -1,3 +1,9 @@
+package settings
+
+import (
+	_ "github.com/preemptcordon/server/notifications"
+)
+
 type UserNoticeDefaultPreferences struct {
 	// queues
 	DiscoverResult     NoticePreference
