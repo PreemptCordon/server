@@ -1,10 +1,10 @@
 package obj
 
 type ACL struct {
-	entity  EntityObj
-	traffic AutoRateLimit
-	limited RateLimit
-	view    bool
-	edit    bool
-	react   bool
+	Entity  EntityObj
+	Traffic AutoRateLimit
+	Limited RateLimit
+	View    bool
+	Edit    bool
+	React   bool
 }

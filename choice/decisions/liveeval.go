@@ -1,18 +1,19 @@
 package decisions
 
-func liveeval(decision Decision){
-	for action in decision.actions {
-		switch(action.kind){
-			// mod preemptive actions
-			case (ModDownrankImpose){
+import (
+	"github.com/preemptcordon/server/obj"
+)
 
-			}
-			case (ModHideImpose){
+func liveeval(decision obj.Decision) {
+	for action := range decision.Actions {
+		switch action.kind {
+		// mod preemptive actions
+		case (obj.ModDownrankImpose):
 
-			}
-			case (ModRatelimitImpose){
-				
-			}
+		case (obj.ModHideImpose):
+
+		case (obj.ModRatelimitImpose):
+
 		}
 	}
 }

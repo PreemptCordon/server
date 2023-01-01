@@ -1,8 +1,11 @@
 package obj
 
+import "github.com/google/uuid"
+
 type EntityObj struct { // user or group
 	handle string
 	about  WikiArticle
+	ID     uuid.UUID
 }
 
 // 	Groups can have regions, or might not.

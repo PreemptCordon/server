@@ -1,13 +1,23 @@
 package search
 
-import "github.com/preemptcordon/server/obj"
+import (
+	"context"
+
+	"github.com/preemptcordon/server/acl"
+	"github.com/preemptcordon/server/db"
+	"github.com/preemptcordon/server/obj"
+)
 
 func CheckACL(article obj.WikiArticle, you obj.UserObj) bool {
-	article.ACL
-	return false
+	for _, ACL := range article.ACL {
+		if !acl.CanRead(ACL, you) {
+			return false
+		}
+	}
+	return true
 }
 func CheckBlock(author obj.UserObj, you obj.UserObj) bool {
-	if DBPool.QueryRow(Context.Background(), "select from blockrelation where (origin = %you and destination = %them) or (origin = %them and destination = %you)") {
+	if db.DBPool.QueryRow(context.Background(), "select from blockrelation where (origin = %you and destination = %them) or (origin = %them and destination = %you)") {
 		return false
 	}
 	return true

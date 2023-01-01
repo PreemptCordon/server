@@ -5,18 +5,18 @@ import (
 )
 
 type Decision struct {
-	style        ChoiceType
-	requirements RequirementsObj
-	facilitator  EntityObj // approves edits to voter guide
-	debator      EntityObj // proposes options
-	voter        EntityObj // votes count (observers can still react)
-	evaldate     time.Time // ending date
-	options      []Option
-	criteria     map[string]Argument
-	actions      []ActionPair
+	Style           ChoiceType
+	Requirements    RequirementsObj
+	FacilitatorPool EntityObj // approves edits to voter guide
+	DebatorPool     EntityObj // proposes options
+	VoterPool       EntityObj // votes count (observers can still react)
+	Evaldate        time.Time // ending date
+	Options         []Option
+	Criteria        map[string]Argument
+	Actions         []ActionPair
 }
 type DecisionResult struct {
-	source    Decision
-	result    string
-	resultref WikiArticle
+	Source    Decision
+	Result    string
+	Resultref WikiArticle
 }
