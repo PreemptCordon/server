@@ -1,0 +1,5 @@
+package federation
+
+func Inbox() {
+
+}
