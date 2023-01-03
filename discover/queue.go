@@ -1,6 +1,8 @@
 package discover
 
 import (
+	"fmt"
+
 	"github.com/preemptcordon/server/obj"
 )
 
@@ -12,12 +14,13 @@ func init() {
 }
 func DiscoverQueue() {
 	for job := range Jobs {
-		isdone := job.evalone()
-		if isdone {
-			Jobs.pop(job)
-		}
-		if Jobs.empty {
-			break
-		}
+		fmt.Println(job)
+		// isdone := job.Eval()
+		// if isdone {
+		// 	Jobs.pop(job)
+		// }
+		// if Jobs.empty {
+		// 	break
+		// }
 	}
 }

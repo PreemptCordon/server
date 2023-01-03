@@ -7,6 +7,7 @@ go 1.18
 require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-redis/redis/v9 v9.0.0-rc.2
+	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/uuid v1.1.2
 	github.com/jackc/pgx/v5 v5.2.0
 	github.com/spf13/viper v1.14.0

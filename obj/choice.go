@@ -27,3 +27,7 @@ type ChoiceDecide interface {
 	Create()
 	Eval()
 }
+type Choice struct {
+	requirements *RequirementsObj
+	template     WikiArticle
+}

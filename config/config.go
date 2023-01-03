@@ -1,9 +1,11 @@
-package main
+package config
 
 import (
 	"github.com/preemptcordon/server/obj"
 	"github.com/spf13/viper"
 )
+
+var ServerConfig obj.ServerSettings
 
 func LoadConfig(path string) (config obj.ServerSettings, err error) {
 	viper.AddConfigPath(path)

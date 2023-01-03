@@ -10,4 +10,5 @@ type ServerSettings struct {
 	SMTPPassword string `mapstructure:"SMTPPassword"`
 	SMTPHost     string `mapstructure:"SMTPHost"`
 	SMTPPort     string `mapstructure:"SMTPPort"`
+	AppKey       string `mapstructure:"AppKey"`
 }

@@ -32,7 +32,7 @@ func UserLimitApply(user obj.UserObj, penalty int) {
 }
 
 func RateLimitApply(user obj.UserObj, page obj.WikiArticle, draft obj.Section) {
-	linkpenalty := linkdetect(draft.Text)
+	linkpenalty := linkdetect(draft.Body)
 	if cache.TryEdit(user, page) {
 		page.Version = draft
 	}

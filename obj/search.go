@@ -7,6 +7,9 @@ const (
 	SearchResultStyle
 )
 
+type Rankable interface {
+	RankSelf(UserObj, Rankable) Rankable
+}
 type ResultEntity struct {
 	// Class   ObjType / could also have meant kind
 	Title   string

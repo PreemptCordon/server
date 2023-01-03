@@ -9,8 +9,8 @@ func RenderEntities(user obj.UserObj) []obj.EntityObj {
 
 func CanRead(acl obj.ACL, user obj.UserObj) bool {
 	for _, entity := range RenderEntities(user) {
-		if entity.ID == acl.Entity.ID {
-			return acl.View
+		if entity.ID == acl.AppliedEntity.ID {
+			return acl.AllowView
 		}
 	}
 	return false

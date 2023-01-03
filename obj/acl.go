@@ -1,10 +1,11 @@
 package obj
 
 type ACL struct {
-	Entity  EntityObj
-	Traffic AutoRateLimit
-	Limited RateLimit
-	View    bool
-	Edit    bool
-	React   bool
+	AppliedEntity EntityObj
+	TrafficDerank AutoRateLimit // sets the post to de-rank from search if it gets too hot
+	LimitedEdits  RateLimit     // the rate limit of the post
+	AllowDiscover bool          // allow the post to be discovered
+	AllowView     bool
+	AllowEdit     bool
+	AllowReact    bool
 }

@@ -5,6 +5,7 @@ import (
 	"sync/atomic"
 
 	"github.com/preemptcordon/server/cache"
+	"github.com/preemptcordon/server/config"
 	"github.com/preemptcordon/server/db"
 	"github.com/preemptcordon/server/discover"
 )
@@ -32,14 +33,15 @@ func loadlisten() {
 }
 
 func main() {
-	ServerConfig, err := LoadConfig(".")
+	var err error
+	config.ServerConfig, err = config.LoadConfig(".")
 	if err != nil {
 		panic(err)
 	}
-	cache.ConnectRedis(ServerConfig.RedisURI)
+	cache.ConnectRedis(config.ServerConfig.RedisURI)
 	loadwatch = make(chan uint64)
 	go loadlisten()
-	db.InitDB(ServerConfig)
+	db.InitDB(config.ServerConfig)
 	r := router()
 	http.ListenAndServe(":8080", r)
 }

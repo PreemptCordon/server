@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	_ "github.com/preemptcordon/server/user"
-	_ "github.com/preemptcordon/server/wiki"
+	"github.com/preemptcordon/server/user"
+	"github.com/preemptcordon/server/wiki"
 
 	"github.com/go-chi/chi/v5"
 )
