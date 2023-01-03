@@ -2,19 +2,33 @@ package obj
 
 import "github.com/google/uuid"
 
-type EntityObj struct { // user or group
+type RoleEntityObj struct {
 	handle string
-	about  WikiArticle
+	group  *GroupObj
+	ACL    []ACL
+}
+
+// table: role:user (2 way relation)
+// table: ACL:role (2 way relation)
+// table: ACL:read,write,vote,discover
+// table: user:subject:email(daily,instant,weekly,none),browser(instantly,daily,weekly,none) <- mail pref resolved from most specific to least specific (decision, group, tags, default)
+// table: blocklist: blocker:blockee (2 way)
+// mute list (one way): feed user:ignored user: expire time : reason
+// downrank list: article, factor, decision, notes(section), author(user)
+
+type GroupObj struct {
+	handle string
+	about  *WikiArticle
 	ID     uuid.UUID
 }
 
 // 	Groups can have regions, or might not.
 
 type EntityInterface interface {
-	Follow(EntityObj, EntityObj) bool
-	Unfollow(EntityObj, EntityObj) bool
+	Follow(EntityInterface, EntityInterface) bool
+	Unfollow(EntityInterface, EntityInterface) bool
 	Notifications() []string
-	Queue(EntityObj)
+	Queue(EntityInterface)
 }
 type UserObj struct {
 	Name     string
@@ -23,6 +37,8 @@ type UserObj struct {
 	Email    string
 	Handle   string
 	Settings UserSettings
+	Summary  *Section
+	Wiki     *WikiArticle
 }
 
 func (u UserObj) Notifications() []string {
@@ -37,23 +53,19 @@ func (u UserObj) Notifications() []string {
 }
 
 type EntityAction struct {
-	list []EntityObj
+	list []EntityInterface
 }
 
 type UserDataLists struct {
-	Follows   []EntityObj
-	Delegates []EntityObj
-	Blocks    []EntityObj
-	Mutes     []EntityObj
+	Follows   []EntityInterface
+	Delegates []EntityInterface
+	Blocks    []EntityInterface
+	Mutes     []EntityInterface
 }
 type UserDataListsInterface interface {
-	Queue(EntityObj)
+	Queue(EntityInterface)
 }
 
-type profile struct {
-	user UserObj
-	wiki WikiArticle
-}
 type UserList []string
 type UserListsData struct {
 	MuteList     UserList

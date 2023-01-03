@@ -7,10 +7,10 @@ import (
 type Decision struct {
 	Style           ChoiceType
 	Requirements    RequirementsObj
-	FacilitatorPool EntityObj // approves edits to voter guide
-	DebatorPool     EntityObj // proposes options
-	VoterPool       EntityObj // votes count (observers can still react)
-	Evaldate        time.Time // ending date
+	FacilitatorPool EntityInterface // approves edits to voter guide
+	DebatorPool     EntityInterface // proposes options
+	VoterPool       EntityInterface // votes count (observers can still react)
+	Evaldate        time.Time       // ending date
 	Options         []Option
 	Criteria        map[string]Argument
 	Actions         []ActionPair

@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
+	"sync"
 	"sync/atomic"
 
 	"github.com/preemptcordon/server/cache"
@@ -12,6 +15,7 @@ import (
 
 var visits uint64
 var loadwatch chan uint64
+var wg sync.WaitGroup
 
 const MAX_BACKGROUND = 1000
 
@@ -32,6 +36,11 @@ func loadlisten() {
 	}
 }
 
+func apiserve() {
+	r := router()
+	log.Fatal(http.ListenAndServe(":8080", r))
+	wg.Done()
+}
 func main() {
 	var err error
 	config.ServerConfig, err = config.LoadConfig(".")
@@ -42,6 +51,9 @@ func main() {
 	loadwatch = make(chan uint64)
 	go loadlisten()
 	db.InitDB(config.ServerConfig)
-	r := router()
-	http.ListenAndServe(":8080", r)
+	wg.Add(1)
+	go apiserve()
+	fmt.Println("started API server")
+	wg.Wait()
+	fmt.Println("exiting")
 }

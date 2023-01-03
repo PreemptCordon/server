@@ -17,7 +17,7 @@ type ResultEntity struct {
 	Summary string
 	Wiki    string
 	Score   int
-	Author  EntityObj
+	Author  EntityInterface
 	ACL     ACL
 }
 
