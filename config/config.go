@@ -9,7 +9,7 @@ var ServerConfig obj.ServerSettings
 
 func LoadConfig(path string) (config obj.ServerSettings, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
+	viper.SetConfigName("server")
 	viper.SetConfigType("env")
 	viper.AutomaticEnv()
 	err = viper.ReadInConfig()

@@ -12,10 +12,11 @@ var ctx context.Context
 
 func ConnectRedis(redisuri string) {
 	ctx = context.Background()
-	client := redis.NewClient(&redis.Options{
-		Addr: redisuri,
-		DB:   0,
-	})
+	opt, err := redis.ParseURL(redisuri)
+	if err != nil {
+		panic(err)
+	}
+	client := redis.NewClient(opt)
 	pong, err := client.Ping(ctx).Result()
 	if err != nil {
 		panic(err)
